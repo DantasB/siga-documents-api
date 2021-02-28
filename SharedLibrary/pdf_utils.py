@@ -1,4 +1,5 @@
 import os
+import shutil
 
 import PyPDF2
 
@@ -65,4 +66,4 @@ def delete_document(file_path):
     Args:
         file_path (str): path where the pdf is located
     """
-    os.remove(file_path)
+    shutil.rmtree(file_path, ignore_errors=True)
