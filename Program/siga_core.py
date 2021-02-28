@@ -78,11 +78,16 @@ async def get_document_from_siga(login, password, doc_type):
         tuple: path where the pdf is located, pdf document bytes
     """
     directory_name = "Documents/" + login
-
+    print("[Debug] Creating the directory")
     pdf_utils.create_directory(directory_name)
 
+    print("[Debug] Accessing the SIGA page")
     cookies = await access_siga(login, password)
+
+    print("[Debug] Accessing the Documents page")
     await access_documents_page(cookies)
+
+    print("[Debug] Downloading the document")
     document = await download_documents(cookies, doc_type, directory_name)
 
     return (directory_name + "/" + doc_type + '.pdf', document)
