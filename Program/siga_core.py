@@ -51,6 +51,9 @@ async def download_documents(cookies, doc_type, pdf_folder_path):
         cookies (cookie_jar): the request cookies
         doc_type (str): document to be downloaded in the page
         pdf_folder_path (str): path where the pdf will be saved
+
+    Returns:
+        bytes: pdf document bytes
     """
     async with aiohttp.ClientSession(cookie_jar=cookies) as session:
         document = await session.post(portal_uri + "/Documentos/certidoes/emitir",
@@ -59,9 +62,10 @@ async def download_documents(cookies, doc_type, pdf_folder_path):
         content = await document.read()
         pdf_path = pdf_folder_path + "/" + doc_type + ".pdf"
         pdf_utils.save_document(content, pdf_path)
+        return content
 
 
-async def get_document_from_siga(login, password, username, doc_type):
+async def get_document_from_siga(login, password, doc_type):
     """ A wrapper that acces every pages, download the pdf and returns the path where it's located
 
     Args:
@@ -71,15 +75,15 @@ async def get_document_from_siga(login, password, username, doc_type):
         doc_type (str): document to be downloaded in the page
 
     Returns:
-        str: path where the pdf is located
+        tuple: path where the pdf is located, pdf document bytes
     """
-    directory_name = "Documents/" + username
+    directory_name = "Documents/" + login
 
     pdf_utils.create_directory(directory_name)
 
     cookies = await access_siga(login, password)
     await access_documents_page(cookies)
-    await download_documents(cookies, doc_type, directory_name)
+    document = await download_documents(cookies, doc_type, directory_name)
 
-    return directory_name + "/" + doc_type + '.pdf'
+    return (directory_name + "/" + doc_type + '.pdf', document)
 
