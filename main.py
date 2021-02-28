@@ -8,9 +8,12 @@ app = Flask(__name__)
 
 loop = asyncio.get_event_loop()
 
+@app.route('/')
+def get_disponible_document_type():
+    return jsonify(list(list_of_documents.keys()))
 
-@app.route('/<document_type>')
-def get_document_(document_type):
+@app.route('/<login>/<password>/<document_type>')
+def get_document(login, password, document_type):
     pass
 
 
