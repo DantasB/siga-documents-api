@@ -17,7 +17,7 @@ Setting up the Siga Documents API is a no-brainer, just follow the guide below:
 
 ### Routes
 - *'/':* This route will return every doc_type that can be downloaded using the api.
-- *'/<login>/<password>/<document_type>':* This route, you need to pass the siga credentials and the document_type that you want to download.
+- *'/[login]/[password]/[document_type]':* This route, you need to pass the siga credentials and the document_type that you want to download.
 
 
 ### Object
