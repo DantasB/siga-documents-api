@@ -2,7 +2,7 @@
 
 ![demonstration](https://cdn.discordapp.com/attachments/539836407628169237/824487428856217620/unknown.png)
 
-## Content Table
+## Table of Contents
 
 <!--ts-->
    * [About](#about)
